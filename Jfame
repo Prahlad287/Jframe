@@ -1,0 +1,147 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Scanner;
+
+public class Login1 {
+    String st,st1;
+    void register(){
+        JFrame f=new JFrame("Register Page");
+        f.setSize(500,400);
+        f.setLocation(600,100);
+        f.setLayout(null);
+        JPanel p=new JPanel();
+        p.setBounds(10,10,450,350);
+        p.setLayout(null);
+        f.add(p);
+        JLabel l=new JLabel("Username");
+        l.setBounds(20,20,80,30);
+        JLabel l1=new JLabel("Password");
+        l1.setBounds(20,80,80,30);
+        p.add(l);
+        p.add(l1);
+        JTextField tf=new JTextField();
+        tf.setBounds(130,20,300,30);
+        JPasswordField pwd=new JPasswordField();
+        pwd.setBounds(130,80,300,30);
+        JButton b1=new JButton("Register");
+        b1.setBounds(200,140,100,30);
+        f.add(tf);f.add(pwd);f.add(b1);
+        JLabel l3=new JLabel();
+        l3.setBounds(60,200,400,30);
+        p.add(l3);
+        f.setVisible(true);
+
+        ActionListener ac=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                st=tf.getText();
+                st1=pwd.getText();
+                try{
+                File rd=new File("C:\\Users\\admin\\Desktop\\java\\User.txt\\");
+                Scanner read=new Scanner(rd);
+                String data=read.nextLine();
+                if(data.contains(st)&& data.contains(st1)){
+                    l3.setText("You are already registred");
+                    System.out.println("You are alredy registred");
+                } else{
+                    FileWriter fw=new FileWriter("C:\\Users\\admin\\Desktop\\java\\User.txt",true);
+                    fw.write(st+st1);
+                    fw.close();
+                    l3.setText("congratulation you are succesfully registred "+ "Your Username is " + st + " and Password " + st1);
+                    System.out.println("congratulation you are succesfully registred "+ "Your Username is " + st + " and Password " + st1);
+                }
+                } catch (Exception i){
+                    System.out.println(i);
+                }
+            }
+        }; b1.addActionListener(ac);
+
+    }
+    void login1(){
+        JFrame f=new JFrame("User data");
+        f.setSize(300,300);
+        f.setLocation(500,300);
+        JTextField tf=new JTextField("Hi Prahlad how are you");
+        tf.setBounds(40,10,200,40);
+        f.add(tf);
+        f.setVisible(true);
+    }
+    void login(){
+        JFrame f=new JFrame("LOGIN PAGE");
+        f.setSize(500,400);
+        f.setLayout(null);
+        JPanel p=new JPanel();
+        p.setBounds(10,10,450,350);
+        p.setLayout(null);
+
+        f.add(p);
+        JLabel l=new JLabel("Username");
+        l.setBounds(20,20,80,30);
+        JLabel l1=new JLabel("Password");
+        l1.setBounds(20,80,80,30);
+        p.add(l);
+        p.add(l1);
+        JTextField tf=new JTextField();
+        tf.setBounds(130,20,300,30);
+        JPasswordField pwd=new JPasswordField();
+        pwd.setBounds(130,80,300,30);
+        JButton b=new JButton("Login");
+        b.setBounds(130,140,100,30);
+        JButton b1=new JButton("Register");
+        b1.setBounds(300,140,100,30);
+        p.add(tf);p.add(pwd);p.add(b);p.add(b1);
+        JLabel l3=new JLabel();
+        l3.setBounds(60,200,400,30);
+        p.add(l3);
+        f.setVisible(true);
+        ActionListener cli=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                st=tf.getText();
+                //System.out.println(st);
+                 st1=pwd.getText();
+               // System.out.println(st1);
+                try {
+                    File rd = new File("C:\\Users\\admin\\Desktop\\java\\User.txt\\");
+                    Scanner read = new Scanner(rd);
+                    String data = read.nextLine();
+                    System.out.println(data);
+                    if(!st.equals("")){
+                    if (data.contains(st)&& data.contains(st1)) {
+                        System.out.println(data);
+                        System.out.println(st);
+                        System.out.println(st1);
+                        l3.setText("You loged succesfully ");
+                        login1();
+                    } else {
+                        l3.setText("You enterd wrong Username & password");
+                        System.out.println("You enterd wrong Username & password");
+                    }}
+                    else{
+                        l3.setText("Empty Fields!!!!");
+                    }
+                }catch (Exception ee){
+                    System.out.println(ee);
+                }
+            }
+        };b.addActionListener(cli);
+        ActionListener click=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                register();
+            }
+        };  b1.addActionListener(click);
+    }
+
+    public static void main(String[] args) {
+        Login1 l=new Login1();
+        l.login();
+
+    }
+}
